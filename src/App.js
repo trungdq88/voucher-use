@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import dateFormat from 'dateformat';
 import logo from './logo.png';
 
-const ACTIVE_ENV = 'prod';
+const ACTIVE_ENV = window.location.hash.replace(/#/, '') || 'prod';
 
 const ENV = {
   uat: {
@@ -14,6 +14,8 @@ const ENV = {
     AUTHENTICATE: 'Basic OWNlMmVlOjU5NTZiYTM2Zjg1YWI5M2JhNGQ4YjFmZmYxNjNlMmNi',
   },
 };
+
+if (!ENV[ACTIVE_ENV]) alert('Link truy cập sai!');
 
 const VARS = ENV[ACTIVE_ENV];
 
