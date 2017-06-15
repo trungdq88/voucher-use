@@ -90,7 +90,7 @@ class App extends Component {
           <div>
             {
               this.state.loading ?
-                <div style={{ height: 90 }}>
+                <div style={{ height: 90, width: 600 }}>
                   <div className="loading"></div>
                 </div>
                 :
