@@ -116,3 +116,19 @@ body {
   padding: 10px;
   font-size: 12px;
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.loading {
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  border: 0.25rem solid rgba(255, 255, 255, 0.5);
+  border-top-color: #fff;
+  animation: spin 0.5s infinite linear;
+  transform: translate3d(0, 0, 0);
+  display: inline-block; }

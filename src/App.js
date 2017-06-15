@@ -24,10 +24,12 @@ class App extends Component {
   state = {
     code: '',
     history: [],
+    loading: false,
   }
 
   submit = () => {
     if (!this.state.code) return;
+    this.setState({ loading: true });
     fetch(VARS.API_ENDPOINT, {
       method: 'POST',
       headers: {
@@ -55,6 +57,7 @@ class App extends Component {
         console.log('success');
         this.setState({
           code: '',
+          loading: false,
           history: [{
             code: this.state.code,
             success: true,
@@ -66,6 +69,7 @@ class App extends Component {
         console.error('error', error);
         this.setState({
           code: '',
+          loading: false,
           history: [{
             code: this.state.code,
             success: false,
@@ -84,14 +88,22 @@ class App extends Component {
             <img src={logo} alt="logo" className="logo" />
           </div>
           <div>
-            <input
-              type="text"
-              value={this.state.code}
-              placeholder="Nhập hoặc scan mã voucher..."
-              className="input"
-              onChange={e => this.setState({ code: e.target.value })}
-              onKeyDown={e => e.keyCode === 13 && this.submit()}
-            />
+            {
+              this.state.loading ?
+                <div style={{ height: 90 }}>
+                  <div className="loading"></div>
+                </div>
+                :
+                <input
+                  autoFocus
+                  type="text"
+                  value={this.state.code}
+                  placeholder="Nhập hoặc scan mã voucher..."
+                  className="input"
+                  onChange={e => this.setState({ code: e.target.value })}
+                  onKeyDown={e => e.keyCode === 13 && this.submit()}
+                />
+            }
           </div>
           <div id="history">
             {this.state.history.map(({
