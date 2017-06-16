@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import dateFormat from 'dateformat';
+import TimeAgo from 'react-timeago';
 import logo from './logo.png';
 
 const ACTIVE_ENV = window.location.hash.replace(/#/, '') || 'prod';
@@ -118,12 +119,17 @@ class App extends Component {
                     'item-code ' + (success ? 'success' : 'failed')
                   }
                 >{code}</div>
-                <div className="item-success">{success}</div>
+                <div className="item-success">
+                  {this.state.history.length - index}
+                </div>
                 <div className="item-message">
                   {message || 'Thành công'}
                 </div>
-                <div className="item-time">
-                  ({dateFormat(time, 'dd/mm/yyyy HH:MM:ss')})
+                <div
+                  className="item-time"
+                  title={dateFormat(time, 'dd/mm/yyyy HH:MM:ss')}
+                >
+                  <TimeAgo date={time} />
                 </div>
               </div>
             ))}
