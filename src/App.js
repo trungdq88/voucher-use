@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import dateFormat from 'dateformat';
 import TimeAgo from 'react-timeago';
 import logo from './logo.png';
+import Scanner from './Scanner.js';
 
 const ACTIVE_ENV = window.location.hash.replace(/#/, '') || 'prod';
 
@@ -24,6 +25,7 @@ class App extends Component {
 
   state = {
     code: '',
+    scanner: false,
     history: [],
     loading: false,
   }
@@ -84,14 +86,33 @@ class App extends Component {
   render() {
     return (
       <div className="home">
+        <div id="scanner">
+          <button
+            className="button"
+            onClick={() => this.setState({ scanner: !this.state.scanner })}
+          >
+            {this.state.scanner ? 'Close Scanner' : 'Open Scanner'}
+          </button>
+        </div>
         <div>
-          <div>
-            <img src={logo} alt="logo" className="logo" />
-          </div>
+          {
+            this.state.scanner ?
+              <Scanner
+                onCodeDetected={code => {
+                  this.setState({ code }, () => {
+                    this.submit();
+                  })
+                }}
+              />
+              :
+              <div>
+                <img src={logo} alt="logo" className="logo" />
+              </div>
+          }
           <div>
             {
               this.state.loading ?
-                <div style={{ height: 90, width: 600 }}>
+                <div className="loading-wrapper">
                   <div className="loading"></div>
                 </div>
                 :
