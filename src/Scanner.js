@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Instascan from 'instascan';
+import beep from './beep.js';
 
 export default class Scanner extends Component {
 
@@ -14,6 +15,7 @@ export default class Scanner extends Component {
       video: this.ref
     });
     this.scanner.addListener('scan', content => {
+      beep();
       this.props.onCodeDetected(content);
     });
     Instascan.Camera.getCameras().then(cameras => {
