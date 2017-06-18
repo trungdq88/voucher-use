@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "crypto": "^0.0.3",
     "dateformat": "^2.0.0",
     "instascan": "^1.0.0",
     "react": "^15.6.1",
@@ -14,9 +15,11 @@
     "react-scripts": "1.0.7"
   },
   "scripts": {
-    "predeploy": "yarn run build",
+    "predeploy": "node generate-password.js && yarn run build",
     "deploy": "gh-pages -d build",
+    "prestart": "node generate-password.js",
     "start": "react-scripts start",
+    "prebuild": "node generate-password.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
